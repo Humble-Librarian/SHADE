@@ -5,9 +5,9 @@
 [![Python](https://img.shields.io/badge/Python-3.10%2B-blue.svg?logo=python&logoColor=white)](https://python.org)
 [![Cryptography](https://img.shields.io/badge/Cryptography-pycryptodome%20%7C%20cryptography-darkgreen.svg)](https://pycryptodome.readthedocs.io/)
 [![License](https://img.shields.io/badge/License-MIT-purple.svg)](LICENSE)
-[![Security](https://img.shields.io/badge/Security-AES--128%20%7C%20RSA--2048%20%7C%20SHA--256-orange.svg)](#)
+[![Security](https://img.shields.io/badge/Security-AES--128%20%7C%20RSA--2048%20%7C%20SHA--256%20%7C%20X.509%20%7C%20Kerberos-orange.svg)](#)
 
-*An end-to-end cryptographic suite demonstrating symmetric encryption primitives, hybrid envelope encryption, Diffie-Hellman key agreement, active MITM interception, and SHA-256 data integrity verification for Electronic Medical Records (EMR).*
+*An end-to-end cryptographic suite demonstrating symmetric encryption primitives, hybrid envelope encryption, Diffie-Hellman key agreement, active MITM interception, SHA-256 data integrity verification, RSA digital signatures, X.509 PKI certificates, and Kerberos ticket-granting authentication for Electronic Medical Records (EMR).*
 
 ---
 
@@ -26,6 +26,10 @@
 - [Task C: Cryptographic Integrity & Tamper Detection](#-task-c-cryptographic-integrity--tamper-detection)
   - [C1: SHA-256 Checksum Verification](#c1-sha-256-document-integrity-verification)
   - [C2: Active Ciphertext Tampering Detection](#c2-active-ciphertext-tampering-simulation)
+- [Task D: Digital Signatures, PKI & Access Control](#-task-d-digital-signatures-pki--access-control)
+  - [D1: RSA Digital Signatures & Non-Repudiation](#d1-rsa-digital-signatures--tamper-testing)
+  - [D2: X.509 Digital Certificates & Identity Binding](#d2-x509-digital-certificates--pki-simulation)
+  - [D3: Kerberos Ticket-Granting Authentication](#d3-kerberos-authentication-protocol-simulation)
 - [Project Directory Structure](#-project-directory-structure)
 - [Installation & Quick Start](#-installation--quick-start)
 
@@ -35,12 +39,14 @@
 
 ```
 +---------------------------------------------------------------------------------------+
-|                                    SENDER (Doctor / Clinic)                           |
+|                                    SENDER (Dr. Sender)                                |
 +---------------------------------------------------------------------------------------+
 |  1. Plaintext EMR (patient_report.txt)                                                |
 |  2. AES-128-CBC Encrypt:  Ciphertext = AES_CBC(Plaintext, Key_AES, IV)                |
-|  3. RSA-OAEP Wrap:        Encrypted_Key = RSA_OAEP_Encrypt(Key_AES, PubKey_Receiver)   |
-|  4. Integrity Digest:     Hash_Original = SHA256(Plaintext)                           |
+|  3. RSA-OAEP Key Wrap:    Encrypted_Key = RSA_OAEP_Encrypt(Key_AES, PubKey_Receiver)   |
+|  4. SHA-256 Integrity:    Hash_Original = SHA256(Plaintext)                           |
+|  5. Digital Signature:    Signature = RSA_Sign(Hash_Original, PrivKey_Sender)         |
+|  6. Identity Binding:     X.509 Certificate (Subject=Dr. Sender, PubKey_Sender)       |
 +-------------------------------------------+-------------------------------------------+
                                             |
                          TRANSMISSION ENVELOPE (In-Transit)
@@ -48,15 +54,18 @@
                          - encrypted_aes_key.bin
                          - iv.bin
                          - original_hash.txt
+                         - document_signature.bin
+                         - sender_certificate.pem
                                             |
                                             v
 +---------------------------------------------------------------------------------------+
-|                                  RECEIVER (Hospital / Specialist)                     |
+|                                  RECEIVER (Hospital Specialist)                       |
 +---------------------------------------------------------------------------------------+
-|  1. RSA-OAEP Unwrap:      Key_AES = RSA_OAEP_Decrypt(Encrypted_Key, PrivKey_Receiver) |
-|  2. AES-128-CBC Decrypt:  Plaintext = AES_CBC_Decrypt(Ciphertext, Key_AES, IV)       |
-|  3. Integrity Check:      Hash_Received = SHA256(Plaintext)                           |
-|                           VERIFY: (Hash_Original == Hash_Received)                    |
+|  1. Certificate Validate: Verify X.509 Certificate & extract PubKey_Sender            |
+|  2. RSA-OAEP Unwrap:      Key_AES = RSA_OAEP_Decrypt(Encrypted_Key, PrivKey_Receiver) |
+|  3. AES-128-CBC Decrypt:  Plaintext = AES_CBC_Decrypt(Ciphertext, Key_AES, IV)       |
+|  4. Integrity Verify:     Hash_Received = SHA256(Plaintext) == Hash_Original          |
+|  5. Signature Verify:     RSA_Verify(Hash_Received, Signature, PubKey_Sender)        |
 +---------------------------------------------------------------------------------------+
 ```
 
@@ -175,6 +184,37 @@ All scripts for Task C reside in [`task_c/`](task_c/).
 
 ---
 
+## 📜 Task D: Digital Signatures, PKI & Access Control
+
+All scripts for Task D reside in [`task_d/`](task_d/).
+
+### D1: RSA Digital Signatures & Tamper Testing
+**`task_d/digital_signature.py`**:
+- **Signing**: Sender hashes `patient_report.txt` with SHA-256 and signs the 32-byte hash using RSA PKCS#1 v1.5 with `sender_private.pem` $\rightarrow$ `document_signature.bin` ($256\text{ bytes}$).
+- **Verification**: Receiver verifies signature using `sender_public.pem`.
+- **Tamper Test**: Flipping a single bit in the medical report immediately causes the signature verification to fail (`❌ Signature Invalid`), proving **authenticity, integrity, and non-repudiation**.
+
+---
+
+### D2: X.509 Digital Certificates & PKI Simulation
+**`task_d/x509_cert_sim.py`**:
+- Binds Dr. Sender's identity (`CN=Dr. Sender, O=SHADE Hospital Network, ST=Gujarat, C=IN`) to their RSA-2048 public key.
+- Self-signed using SHA-256 for a 365-day validity window $\rightarrow$ `sender_certificate.pem`.
+- Receiver parses, extracts the public key, and validates certificate fields and expiration boundaries.
+
+---
+
+### D3: Kerberos Authentication Protocol Simulation
+**`task_d/kerberos_sim.py`**:
+- Simulates the 4-step Single Sign-On (SSO) ticket-granting exchange:
+  1. **Client $\rightarrow$ AS**: Request authentication.
+  2. **AS $\rightarrow$ Client**: Issue Ticket Granting Ticket (TGT) encrypted with TGS Master Key.
+  3. **Client $\rightarrow$ TGS**: Present TGT and request Service Ticket for `HospitalRecordServer`.
+  4. **TGS $\rightarrow$ Client**: Issue Service Ticket encrypted with Service Master Key.
+  5. **Client $\rightarrow$ Server**: Present Service Ticket $\rightarrow$ Server decrypts ticket and grants access.
+
+---
+
 ## 📂 Project Directory Structure
 
 ```
@@ -211,13 +251,22 @@ Hospital-Document-Exchange/
 │   ├── encrypted_aes_key.bin          # RSA-OAEP encrypted AES key (256 bytes)
 │   └── patient_report_hybrid_decrypted.txt
 │
-└── task_c/                            # [ Task C — Integrity & Tamper Detection ]
-    ├── integrity_check.py             # SHA-256 checksum generation & validation
-    ├── tamper_detection.py            # Ciphertext corruption & active detection alert
-    ├── original_hash.txt              # SHA-256 digest string of original EMR
-    ├── patient_report_TAMPERED.bin    # Corrupted ciphertext
-    ├── patient_report_TAMPERED_decrypted.txt
-    └── patient_report_integrity_decrypted.txt
+├── task_c/                            # [ Task C — Integrity & Tamper Detection ]
+│   ├── integrity_check.py             # SHA-256 checksum generation & validation
+│   ├── tamper_detection.py            # Ciphertext corruption & active detection alert
+│   ├── original_hash.txt              # SHA-256 digest string of original EMR
+│   ├── patient_report_TAMPERED.bin    # Corrupted ciphertext
+│   ├── patient_report_TAMPERED_decrypted.txt
+│   └── patient_report_integrity_decrypted.txt
+│
+└── task_d/                            # [ Task D — Digital Signatures, PKI & Access ]
+    ├── digital_signature.py           # RSA PKCS#1 v1.5 signing, verification & tamper test
+    ├── x509_cert_sim.py               # X.509 self-signed certificate generation & parsing
+    ├── kerberos_sim.py                # 4-step Kerberos ticket granting simulation
+    ├── sender_private.pem             # Sender's RSA private key for signing
+    ├── sender_public.pem              # Sender's RSA public key for verification
+    ├── document_signature.bin         # RSA digital signature on SHA-256 hash (256 bytes)
+    └── sender_certificate.pem         # X.509 public key certificate
 ```
 
 ---
@@ -261,6 +310,15 @@ cd ..
 cd task_c
 python integrity_check.py
 python tamper_detection.py
+cd ..
+```
+
+### 5. Running Task D (Signatures, PKI & Access Control)
+```bash
+cd task_d
+python digital_signature.py
+python x509_cert_sim.py
+python kerberos_sim.py
 cd ..
 ```
 
