@@ -1,0 +1,69 @@
+®Ñ@µ’Ð*dú]YRŒ==========Â=====================W†½šqkûk2Îîiâ==—=============
+                    METROPOLITAN GENERAL HOSPITAL
+                  ELECTRONIC MEDICAL RECORD / REPORT
+================================================================================
+Report ID: EMR-2026-088492
+Date of Admission: 2026-08-28 09:45 EST
+Date of Report: 2026-09-01 10:15 EST
+Attending Physician: Dr. Marcus Vance, MD (Cardiology & Internal Medicine)
+Department: Advanced Cardiac Care & Pulmonary Medicine
+
+--------------------------------------------------------------------------------
+1. PATIENT IDENTIFICATION & DEMOGRAPHICS
+--------------------------------------------------------------------------------
+Patient Name: Jane Eleanor Doe
+Date of Birth: 1984-06-14 (Age: 42)
+Gender: Female
+National Health ID: NHI-883-9102-B
+Emergency Contact: Richard Doe (Spouse) - Phone: +1 (555) 019-4829
+Primary Insurance: BlueShield Health Group - Policy #PL-90291-C8
+
+--------------------------------------------------------------------------------
+2. CLINICAL PRESENTATION & CHIEF COMPLAINT
+--------------------------------------------------------------------------------
+Patient presented to the emergency department experiencing acute episodes of 
+retrosternal chest discomfort radiating to the left shoulder and jaw, accompanied 
+by progressive dyspnea upon moderate exertion and intermittent diaphoresis. Symptoms 
+have been recurrent over the past 72 hours with escalating severity.
+
+--------------------------------------------------------------------------------
+3. VITAL SIGNS & DIAGNOSTIC OBSERVATIONS
+--------------------------------------------------------------------------------
+- Blood Pressure: 142/92 mmHg (Hypertensive Stage II)
+- Heart Rate: 88 bpm (Regular sinus rhythm)
+- Respiratory Rate: 19 breaths/min
+- Oxygen Saturation: 97% on ambient air
+- Body Temperature: 37.1 Â°C (98.8 Â°F)
+- ECG Findings: Normal sinus rhythm with slight ST-segment elevation in leads V2-V4.
+- High-Sensitivity Troponin I: Initial 0.08 ng/mL -> 3-Hour Repeat 0.22 ng/mL (Elevated)
+- Transthoracic Echocardiogram: Mild anterior wall hypokinesis; LVEF estimated at 52%.
+
+--------------------------------------------------------------------------------
+4. DIAGNOSIS & ASSESSMENT
+--------------------------------------------------------------------------------
+Primary Diagnosis: Non-ST-Elevation Myocardial Infarction (NSTEMI)
+Secondary Diagnoses:
+  1. Essential Hypertension
+  2. Hyperlipidemia (Uncontrolled)
+  3. Mild Bronchospastic Airway Disease
+
+--------------------------------------------------------------------------------
+5. TREATMENT PLAN & PHARMACEUTICAL PRESCRIPTIONS
+--------------------------------------------------------------------------------
+Medications Ordered:
+  1. Aspirin (Ecotrin) - 81 mg PO Daily (Cardioprotective)
+  2. Clopidogrel (Plavix) - 75 mg PO Daily (Antiplatelet therapy)
+  3. Atorvastatin (Lipitor) - 80 mg PO QHS (Lipid-lowering)
+  4. Metoprolol Succinate ER - 50 mg PO Daily (Beta-blocker)
+  5. Enoxaparin Sodium (Lovenox) - 70 mg SubQ Q12H for 48 hours
+
+Physician Orders & Directives:
+- Continuous 12-lead telemetry monitoring in Cardiac Care Unit (CCU, Bed 4).
+- Low-sodium, cardiac-prudent dietary regimen (< 2,000 mg Na/day).
+- Scheduled for diagnostic coronary angiography on 2026-09-02 at 08:00 AM.
+- Strict bed rest until angiography procedure and re-evaluation of cardiac enzymes.
+
+--------------------------------------------------------------------------------
+Physician Signature: Dr. Marcus Vance, MD, FACC (License #MD-488921)
+Verified By: Sarah Jenkins, RN (CCU Lead Nurse)
+================================================================================

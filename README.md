@@ -1,12 +1,12 @@
 # MedVault — Secure Hospital Document Exchange System
 
-MedVault is a cryptographic framework designed for secure hospital electronic medical record (EMR) exchange, demonstrating symmetric encryption primitives, hybrid key wrapping, key agreement, and active vulnerability analysis.
+MedVault is an end-to-end cryptographic framework designed for secure hospital electronic medical record (EMR) exchange, demonstrating symmetric encryption primitives, hybrid key wrapping, key agreement, cryptographic integrity checking, and vulnerability analysis.
 
 ---
 
 ## 🏥 Project Overview
 
-### Task A — Symmetric Encryption & Analysis
+### Task A — Symmetric Encryption & Mode Analysis
 - **`aes_encrypt.py`**:
   - Implements **AES-128 in CBC mode** with PKCS7 padding.
   - Automatically generates and exports 16-byte key (`key.bin`) and initialization vector (`iv.bin`).
@@ -51,6 +51,18 @@ MedVault is a cryptographic framework designed for secure hospital electronic me
 
 ---
 
+### Task C — Cryptographic Integrity & Tamper Detection (`task_c/`)
+- **`task_c/integrity_check.py`**:
+  - Computes cryptographic **SHA-256** checksum before transmission (`original_hash.txt`).
+  - Transmits payload package (ciphertext, RSA-encrypted AES key, IV, and SHA-256 digest).
+  - Decrypts on Receiver side, recomputes SHA-256, and verifies uncompromised data integrity.
+
+- **`task_c/tamper_detection.py`**:
+  - Simulates active in-transit attacker flipping bytes at indexes 10 and 50 in `patient_report_AES_encrypted.bin`.
+  - Demonstrates how receiver's SHA-256 verification catches corruption and immediately rejects tampered records.
+
+---
+
 ## 📊 Performance Benchmarks (AES-128 vs. 3-DES)
 
 | File Size | AES-128 CBC Encryption Time | 3-DES CBC Encryption Time | Speedup Factor |
@@ -85,4 +97,11 @@ python rsa_keygen.py
 python hybrid_encrypt.py
 python diffie_hellman.py
 python mitm_attack.py
+```
+
+### 4. Run Task C
+```bash
+cd ../task_c
+python integrity_check.py
+python tamper_detection.py
 ```
