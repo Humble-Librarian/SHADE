@@ -1,69 +1,188 @@
 ================================================================================
-                    METROPOLITAN GENERAL HOSPITAL
-                  ELECTRONIC MEDICAL RECORD / REPORT
+         SHADE HOSPITAL NETWORK — ELECTRONIC MEDICAL RECORD (EMR)
 ================================================================================
-Report ID: EMR-2026-088492
-Date of Admission: 2026-08-28 09:45 EST
-Date of Report: 2026-09-01 10:15 EST
-Attending Physician: Dr. Marcus Vance, MD (Cardiology & Internal Medicine)
-Department: Advanced Cardiac Care & Pulmonary Medicine
+
+DOCUMENT ID   : EMR-2026-08-GJ-004471
+GENERATED ON  : 2026-08-31
+CLASSIFICATION: CONFIDENTIAL — AUTHORIZED PERSONNEL ONLY
+FACILITY      : SHADE Multi-Specialty Hospital, Ahmedabad, Gujarat, IN
 
 --------------------------------------------------------------------------------
-1. PATIENT IDENTIFICATION & DEMOGRAPHICS
+SECTION 1 — PATIENT DEMOGRAPHICS
 --------------------------------------------------------------------------------
-Patient Name: Jane Eleanor Doe
-Date of Birth: 1984-06-14 (Age: 42)
-Gender: Female
-National Health ID: NHI-883-9102-B
-Emergency Contact: Richard Doe (Spouse) - Phone: +1 (555) 019-4829
-Primary Insurance: BlueShield Health Group - Policy #PL-90291-C8
+Full Name       : Arjun Mehta
+Date of Birth   : 1984-03-17  (Age: 42)
+Gender          : Male
+Blood Group     : B+
+Aadhaar (last4) : XXXX-XXXX-6247
+Contact         : +91-98765-43210
+Address         : 14, Shahibaug Society, Near Civil Hospital,
+                  Ahmedabad — 380004, Gujarat, India
+Emergency Contact: Priya Mehta (Spouse) — +91-98765-43211
+Insurance ID    : PMJAY-GJ-2024-77821
 
 --------------------------------------------------------------------------------
-2. CLINICAL PRESENTATION & CHIEF COMPLAINT
+SECTION 2 — ADMISSION DETAILS
 --------------------------------------------------------------------------------
-Patient presented to the emergency department experiencing acute episodes of 
-retrosternal chest discomfort radiating to the left shoulder and jaw, accompanied 
-by progressive dyspnea upon moderate exertion and intermittent diaphoresis. Symptoms 
-have been recurrent over the past 72 hours with escalating severity.
+Admission Date  : 2026-08-28
+Ward            : General Medicine — Ward 3B, Bed 14
+Admitting Doctor: Dr. Kavya Sharma, MD (Internal Medicine)
+Ref. Doctor     : Dr. Rohan Desai, MD (Cardiology)
+Chief Complaint : Persistent chest pain (2 days), shortness of breath,
+                  mild dizziness on exertion.
 
 --------------------------------------------------------------------------------
-3. VITAL SIGNS & DIAGNOSTIC OBSERVATIONS
+SECTION 3 — MEDICAL HISTORY
 --------------------------------------------------------------------------------
-- Blood Pressure: 142/92 mmHg (Hypertensive Stage II)
-- Heart Rate: 88 bpm (Regular sinus rhythm)
-- Respiratory Rate: 19 breaths/min
-- Oxygen Saturation: 97% on ambient air
-- Body Temperature: 37.1 °C (98.8 °F)
-- ECG Findings: Normal sinus rhythm with slight ST-segment elevation in leads V2-V4.
-- High-Sensitivity Troponin I: Initial 0.08 ng/mL -> 3-Hour Repeat 0.22 ng/mL (Elevated)
-- Transthoracic Echocardiogram: Mild anterior wall hypokinesis; LVEF estimated at 52%.
+Past Illnesses  :
+  - Type 2 Diabetes Mellitus (diagnosed 2018, HbA1c: 7.4%)
+  - Hypertension (diagnosed 2020, on medication)
+  - No prior cardiac events reported
+
+Surgical History:
+  - Appendectomy (2011, City Hospital, Surat) — uneventful recovery
+
+Family History  :
+  - Father: Coronary Artery Disease (MI at age 58)
+  - Mother: Hypertension, Type 2 Diabetes
+
+Allergies       :
+  - Penicillin (rash, moderate)
+  - Sulfonamides (anaphylaxis, severe) — ALERT ON FILE
+
+Habits          :
+  - Non-smoker
+  - Occasional alcohol (social, <2 units/week)
+  - Sedentary occupation (desk job, 10+ hrs/day)
 
 --------------------------------------------------------------------------------
-4. DIAGNOSIS & ASSESSMENT
+SECTION 4 — CLINICAL EXAMINATION FINDINGS
 --------------------------------------------------------------------------------
-Primary Diagnosis: Non-ST-Elevation Myocardial Infarction (NSTEMI)
+Vitals on Admission:
+  Blood Pressure      : 148/94 mmHg (elevated)
+  Heart Rate          : 92 bpm (regular rhythm)
+  Respiratory Rate    : 18 breaths/min
+  SpO2                : 97% (room air)
+  Temperature         : 98.6°F (37.0°C)
+  Weight              : 84 kg
+  Height              : 172 cm
+  BMI                 : 28.4 (Overweight)
+
+Systemic Examination:
+  Cardiovascular  : S1 S2 heard, no murmurs; mild pedal edema (bilateral)
+  Respiratory     : Clear bilaterally, no added sounds
+  Abdomen         : Soft, non-tender, no organomegaly
+  Neurological    : Alert and oriented; GCS 15/15
+  Peripheral Pulses: Dorsalis pedis faintly palpable bilaterally
+
+--------------------------------------------------------------------------------
+SECTION 5 — INVESTIGATIONS & LABORATORY RESULTS
+--------------------------------------------------------------------------------
+ECG (12-Lead, 2026-08-28 09:15):
+  - ST depression in leads V4–V6 (0.5mm)
+  - No acute STEMI pattern
+  - Impression: Non-specific ST-T changes; cannot rule out NSTEMI
+
+2D Echocardiography (2026-08-28 14:00):
+  - EF: 48% (mildly reduced)
+  - Mild LV diastolic dysfunction (Grade 1)
+  - No regional wall motion abnormality
+  - No pericardial effusion
+
+Blood Investigations (2026-08-28, 08:45):
+  Parameter               Result          Reference Range       Flag
+  ─────────────────────────────────────────────────────────────────
+  Haemoglobin             12.8 g/dL       13.0–17.0 g/dL        LOW
+  WBC Count               9,400 /µL       4,000–11,000 /µL      Normal
+  Platelet Count          1,98,000 /µL    1,50,000–4,50,000     Normal
+  Fasting Blood Sugar     138 mg/dL       70–100 mg/dL          HIGH
+  HbA1c                   7.6%            <5.7% (Normal)        HIGH
+  Serum Creatinine        1.1 mg/dL       0.7–1.3 mg/dL         Normal
+  eGFR                    72 mL/min       >60 mL/min            Normal
+  Total Cholesterol       214 mg/dL       <200 mg/dL            HIGH
+  LDL Cholesterol         138 mg/dL       <100 mg/dL            HIGH
+  HDL Cholesterol         38 mg/dL        >40 mg/dL             LOW
+  Triglycerides           188 mg/dL       <150 mg/dL            HIGH
+  Troponin-I (hs)         0.034 ng/mL     <0.040 ng/mL          Borderline
+  CK-MB                   18 U/L          <25 U/L               Normal
+  Sodium                  138 mEq/L       136–145 mEq/L         Normal
+  Potassium               4.1 mEq/L       3.5–5.0 mEq/L         Normal
+  ─────────────────────────────────────────────────────────────────
+
+Chest X-Ray (PA View, 2026-08-28):
+  - Mild cardiomegaly
+  - No pulmonary oedema, no pleural effusion
+  - Mediastinum central
+
+--------------------------------------------------------------------------------
+SECTION 6 — DIAGNOSIS
+--------------------------------------------------------------------------------
+Primary Diagnosis:
+  Unstable Angina (Possible NSTEMI — serial troponin monitoring ongoing)
+
 Secondary Diagnoses:
-  1. Essential Hypertension
-  2. Hyperlipidemia (Uncontrolled)
-  3. Mild Bronchospastic Airway Disease
+  1. Dyslipidaemia (mixed — high LDL, low HDL, high TG)
+  2. Type 2 Diabetes Mellitus — suboptimally controlled
+  3. Essential Hypertension — partially controlled
+  4. Mild LV Diastolic Dysfunction
 
 --------------------------------------------------------------------------------
-5. TREATMENT PLAN & PHARMACEUTICAL PRESCRIPTIONS
+SECTION 7 — TREATMENT PLAN & MEDICATION
 --------------------------------------------------------------------------------
-Medications Ordered:
-  1. Aspirin (Ecotrin) - 81 mg PO Daily (Cardioprotective)
-  2. Clopidogrel (Plavix) - 75 mg PO Daily (Antiplatelet therapy)
-  3. Atorvastatin (Lipitor) - 80 mg PO QHS (Lipid-lowering)
-  4. Metoprolol Succinate ER - 50 mg PO Daily (Beta-blocker)
-  5. Enoxaparin Sodium (Lovenox) - 70 mg SubQ Q12H for 48 hours
+Immediate Management:
+  - Bed rest, cardiac monitoring (continuous telemetry)
+  - Oxygen supplementation (2L/min via nasal cannula, SpO2 target >95%)
+  - IV access established (18G, right antecubital)
 
-Physician Orders & Directives:
-- Continuous 12-lead telemetry monitoring in Cardiac Care Unit (CCU, Bed 4).
-- Low-sodium, cardiac-prudent dietary regimen (< 2,000 mg Na/day).
-- Scheduled for diagnostic coronary angiography on 2026-09-02 at 08:00 AM.
-- Strict bed rest until angiography procedure and re-evaluation of cardiac enzymes.
+Medications Prescribed:
+  Drug                  Dose         Route  Frequency   Duration
+  ──────────────────────────────────────────────────────────────
+  Tab. Aspirin          150 mg       Oral   Once daily  Ongoing
+  Tab. Clopidogrel      75 mg        Oral   Once daily  12 months
+  Tab. Atorvastatin     40 mg        Oral   At night    Ongoing
+  Tab. Metoprolol       25 mg        Oral   Twice daily Ongoing
+  Tab. Ramipril         2.5 mg       Oral   Once daily  Ongoing
+  Inj. Enoxaparin       0.6 mL       SC     Twice daily 5 days
+  Tab. Metformin        500 mg       Oral   Twice daily Ongoing
+  Tab. Pantoprazole     40 mg        Oral   Before food Ongoing
+  ──────────────────────────────────────────────────────────────
+  NOTE: AVOID Penicillin / Sulfonamides — documented allergy
+
+Follow-up Investigations:
+  - Serial Troponin-I at 6h and 12h post-admission
+  - Repeat ECG at 6h
+  - Cardiology review scheduled: 2026-09-01 at 11:00
 
 --------------------------------------------------------------------------------
-Physician Signature: Dr. Marcus Vance, MD, FACC (License #MD-488921)
-Verified By: Sarah Jenkins, RN (CCU Lead Nurse)
+SECTION 8 — PROGRESS NOTES
+--------------------------------------------------------------------------------
+2026-08-29 08:00 — Dr. Kavya Sharma:
+  Patient comfortable, chest pain reduced (NRS 3/10 from 7/10 on admission).
+  Repeat Troponin at 6h: 0.031 ng/mL (not rising — favourable sign).
+  Continue current management. Await cardiology review.
+
+2026-08-30 10:00 — Dr. Rohan Desai (Cardiology Consult):
+  Reviewed ECG, Echo, and labs. Current presentation consistent with
+  Unstable Angina rather than NSTEMI given stable troponin trend.
+  Recommend stress thallium if troponin remains negative at 12h.
+  Dual antiplatelet and statin therapy appropriate. Plan discharge
+  in 48h if clinically stable.
+
+--------------------------------------------------------------------------------
+SECTION 9 — CONSENT & AUTHORIZATION
+--------------------------------------------------------------------------------
+Patient Consent   : Obtained (signed, 2026-08-28) — Procedure & treatment
+Data Sharing      : Restricted — within SHADE network only
+Record Access     : Dr. Kavya Sharma, Dr. Rohan Desai, Authorized Nursing Staff
+
+Prepared By       : Dr. Kavya Sharma, MD (Internal Medicine)
+Designation       : Senior Resident, General Medicine
+Digital Signature : [Verified via SHADE PKI — see document_signature.bin]
+Certificate ID    : SHADE-CERT-2026-KS-0031
+
+================================================================================
+END OF RECORD — EMR-2026-08-GJ-004471
+SHADE Hospital Network | Confidentiality Notice: This document contains
+privileged medical information. Unauthorized access, disclosure, or
+distribution is strictly prohibited under the IT Act 2000 & DPDP Act 2023.
 ================================================================================
