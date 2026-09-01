@@ -1,6 +1,6 @@
 <div align="center">
 
-# 🏥 MedVault — Cryptographic Hospital Document Exchange System
+# 🏥 SHADE — Secure Hospital And Document Exchange
 
 [![Python](https://img.shields.io/badge/Python-3.10%2B-blue.svg?logo=python&logoColor=white)](https://python.org)
 [![Cryptography](https://img.shields.io/badge/Cryptography-pycryptodome%20%7C%20cryptography-darkgreen.svg)](https://pycryptodome.readthedocs.io/)
@@ -14,6 +14,7 @@
 </div>
 
 ## 📌 Table of Contents
+- [Executive Overview](#-executive-overview)
 - [System Architecture](#-system-architecture)
 - [Task A: Symmetric Encryption & Mode Analysis](#-task-a-symmetric-encryption--mode-analysis)
   - [AES-128 vs. 3-DES Benchmarks](#1-performance-benchmarks-aes-128-vs-3-des)
@@ -35,11 +36,20 @@
 
 ---
 
+## 🏥 Executive Overview
+
+**SHADE (Secure Hospital And Document Exchange)** is an end-to-end cryptographic framework developed for hospital telemedicine networks and Electronic Medical Record (EMR) exchange. It models three fundamental actors:
+1. **The Sender (Dr. Kavya Sharma / Clinic)**: Generates, encrypts, signs, and packages patient medical records.
+2. **The Receiver (Dr. Rohan Desai / Hospital Specialist)**: Unwraps keys, decrypts payloads, verifies SHA-256 checksums, and authenticates digital signatures.
+3. **The Adversary ("Mallory" / Network Interceptor)**: Simulates active MITM key injection and in-transit ciphertext corruption to validate security defenses.
+
+---
+
 ## 🏗 System Architecture
 
 ```
 +---------------------------------------------------------------------------------------+
-|                                    SENDER (Dr. Sender)                                |
+|                                    SENDER (Dr. Kavya Sharma / Clinic)                 |
 +---------------------------------------------------------------------------------------+
 |  1. Plaintext EMR (patient_report.txt)                                                |
 |  2. AES-128-CBC Encrypt:  Ciphertext = AES_CBC(Plaintext, Key_AES, IV)                |
@@ -59,7 +69,7 @@
                                             |
                                             v
 +---------------------------------------------------------------------------------------+
-|                                  RECEIVER (Hospital Specialist)                       |
+|                                  RECEIVER (Dr. Rohan Desai / Hospital)                |
 +---------------------------------------------------------------------------------------+
 |  1. Certificate Validate: Verify X.509 Certificate & extract PubKey_Sender            |
 |  2. RSA-OAEP Unwrap:      Key_AES = RSA_OAEP_Decrypt(Encrypted_Key, PrivKey_Receiver) |
@@ -78,9 +88,9 @@ Both ciphers were evaluated in CBC mode across three distinct payload sizes ($1\
 
 | File Sizing | Dataset File | AES-128 CBC Time | 3-DES CBC Time | Speedup Factor (AES) |
 | :--- | :--- | :--- | :--- | :--- |
-| **~1 KB** | `test_1kb.txt` | **0.2344 ms** | 1.4720 ms | **~6.3x faster** |
-| **~100 KB** | `test_100kb.txt` | **1.0140 ms** | 19.5327 ms | **~19.3x faster** |
-| **~1 MB** | `test_1mb.txt` | **9.5637 ms** | 130.8837 ms | **~13.7x faster** |
+| **~1 KB** | `test_1kb.txt` | **0.56 ms** | 1.61 ms | **~2.8x faster** |
+| **~100 KB** | `test_100kb.txt` | **2.22 ms** | 19.04 ms | **~8.6x faster** |
+| **~1 MB** | `test_1mb.txt` | **16.66 ms** | 227.92 ms | **~13.7x faster** |
 
 > **Key Takeaway**: AES is significantly faster than 3-DES due to modern byte substitution-permutation networks and hardware-level optimization (AES-NI), while 3-DES requires 3 sequential DES operations with 64-bit block bottlenecks.
 
@@ -91,9 +101,9 @@ The avalanche effect measures cryptographic diffusion: flipping a single bit in 
 
 - **Original Plaintext byte 0**: `0b00111101`
 - **Modified Plaintext byte 0**: `0b00111100` (1 bit flipped via `^= 0x01`)
-- **Total Bits Tested**: $30,080\text{ bits}$
-- **Bits Inverted in Ciphertext**: $15,026\text{ bits}$
-- **Measured Avalanche Effect**: **`49.95%`** (Optimal target: $45\% - 55\%$)
+- **Total Bits Tested**: $75,520\text{ bits}$
+- **Bits Inverted in Ciphertext**: $37,869\text{ bits}$
+- **Measured Avalanche Effect**: **`50.14%`** (Optimal target: $45\% - 55\%$)
 
 ```bash
 python avalanche.py
@@ -119,7 +129,7 @@ All scripts for Task B reside in [`task_b/`](task_b/).
 ### B1: RSA-2048 Key Generation & Hybrid Envelope Encryption
 1. **`task_b/rsa_keygen.py`**:
    - Generates a **2048-bit RSA key pair**:
-     - `receiver_private.pem` ($1,674\text{ bytes}$): Confidential private key used by receiver for decryption.
+     - `receiver_private.pem` ($1,678\text{ bytes}$): Confidential private key used by receiver for decryption.
      - `receiver_public.pem` ($450\text{ bytes}$): Public key shared with senders.
 2. **`task_b/hybrid_encrypt.py`**:
    - **Sender**: Uses `PKCS1_OAEP` to encrypt the 128-bit AES session key (`key.bin`) using `receiver_public.pem` $\rightarrow$ `encrypted_aes_key.bin` ($256\text{ bytes}$).
@@ -158,7 +168,7 @@ All scripts for Task C reside in [`task_c/`](task_c/).
 **`task_c/integrity_check.py`**:
 - Sender computes cryptographic digest before transmission:
   ```
-  SHA-256 (original): 07d3927fef59fee630f946b0e3edac8c917c621289edfc3d86aead324a580d51
+  SHA-256 (original): e5ae1671c36d24d5dd3f2b1111d0caaa4ff74d89493e63c5a7c897361859c680
   ```
 - Receiver decrypts payload, recomputes digest, and verifies match:
   ```
@@ -175,8 +185,8 @@ All scripts for Task C reside in [`task_c/`](task_c/).
   - Byte 50: `tampered[50] ^= 0xAA`
 - Receiver decrypts the damaged stream and computes SHA-256:
   ```
-  Expected SHA-256 (Original) : 07d3927fef59fee630f946b0e3edac8c917c621289edfc3d86aead324a580d51
-  Calculated SHA-256 (Tampered): 7eb95cb0aeb9564e4cc552212d06629b3033ee7353cf3784dd6802186b204f00
+  Expected SHA-256 (Original) : e5ae1671c36d24d5dd3f2b1111d0caaa4ff74d89493e63c5a7c897361859c680
+  Calculated SHA-256 (Tampered): 7eb10bd712f0384c09577942c648d95404625e2894042236699e28585c64dc38
 
   🚨 ALERT: Hash mismatch — tampering detected!
   ❌ Document integrity check failed! The corrupted file was immediately rejected.
@@ -207,7 +217,7 @@ All scripts for Task D reside in [`task_d/`](task_d/).
 ### D3: Kerberos Authentication Protocol Simulation
 **`task_d/kerberos_sim.py`**:
 - Simulates the 4-step Single Sign-On (SSO) ticket-granting exchange:
-  1. **Client $\rightarrow$ AS**: Request authentication.
+  1. **Client $\rightarrow$ AS**: Request authentication for `Dr. Sender`.
   2. **AS $\rightarrow$ Client**: Issue Ticket Granting Ticket (TGT) encrypted with TGS Master Key.
   3. **Client $\rightarrow$ TGS**: Present TGT and request Service Ticket for `HospitalRecordServer`.
   4. **TGS $\rightarrow$ Client**: Issue Service Ticket encrypted with Service Master Key.
@@ -221,6 +231,7 @@ All scripts for Task D reside in [`task_d/`](task_d/).
 Hospital-Document-Exchange/
 ├── .gitignore
 ├── README.md
+├── demo.py                            # Master End-to-End SHADE Pipeline Runner (14 checks)
 │
 ├── [ Task A — Symmetric Ciphers & Mode Analysis ]
 ├── aes_encrypt.py                     # AES-128 CBC encryption, verification & benchmarks
@@ -275,6 +286,7 @@ Hospital-Document-Exchange/
 
 ### 1. Prerequisites & Virtual Environment
 ```bash
+# Clone the repository
 git clone https://github.com/Humble-Librarian/MedVault.git
 cd MedVault
 
@@ -287,44 +299,51 @@ python -m venv venv
 pip install pycryptodome Pillow cryptography
 ```
 
-### 2. Running Task A (Symmetric Suite)
+### 2. Run Master End-to-End Pipeline
 ```bash
-python aes_encrypt.py
-python des_encrypt.py
-python avalanche.py
-python ecb_vs_cbc_image.py
+python demo.py
 ```
 
-### 3. Running Task B (Asymmetric Suite)
-```bash
-cd task_b
-python rsa_keygen.py
-python hybrid_encrypt.py
-python diffie_hellman.py
-python mitm_attack.py
-cd ..
-```
+### 3. Or Run Tasks Individually
 
-### 4. Running Task C (Integrity Suite)
-```bash
-cd task_c
-python integrity_check.py
-python tamper_detection.py
-cd ..
-```
+- **Task A (Symmetric Suite)**:
+  ```bash
+  python aes_encrypt.py
+  python des_encrypt.py
+  python avalanche.py
+  python ecb_vs_cbc_image.py
+  ```
 
-### 5. Running Task D (Signatures, PKI & Access Control)
-```bash
-cd task_d
-python digital_signature.py
-python x509_cert_sim.py
-python kerberos_sim.py
-cd ..
-```
+- **Task B (Asymmetric Suite)**:
+  ```bash
+  cd task_b
+  python rsa_keygen.py
+  python hybrid_encrypt.py
+  python diffie_hellman.py
+  python mitm_attack.py
+  cd ..
+  ```
+
+- **Task C (Integrity Suite)**:
+  ```bash
+  cd task_c
+  python integrity_check.py
+  python tamper_detection.py
+  cd ..
+  ```
+
+- **Task D (Signatures, PKI & Access Control)**:
+  ```bash
+  cd task_d
+  python digital_signature.py
+  python x509_cert_sim.py
+  python kerberos_sim.py
+  cd ..
+  ```
 
 ---
 
 <div align="center">
-  <b>Developed for Secure Healthcare Cryptographic Exchanges</b><br>
+  <b>SHADE — Secure Hospital And Document Exchange</b><br>
   <sub>All patient data utilized in benchmarks is synthetic and generated strictly for cryptographic testing purposes.</sub>
 </div>
