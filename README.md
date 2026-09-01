@@ -287,8 +287,8 @@ Hospital-Document-Exchange/
 ### 1. Prerequisites & Virtual Environment
 ```bash
 # Clone the repository
-git clone https://github.com/Humble-Librarian/MedVault.git
-cd MedVault
+git clone https://github.com/Humble-Librarian/SHADE.git
+cd SHADE
 
 # Create and activate virtual environment
 python -m venv venv
