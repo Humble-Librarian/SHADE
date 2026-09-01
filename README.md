@@ -16,6 +16,7 @@
 ## 📌 Table of Contents
 - [Executive Overview](#-executive-overview)
 - [System Architecture](#-system-architecture)
+- [Interactive CLI Application (`shade_cli.py`)](#-interactive-cli-application-shade_clipy)
 - [Task A: Symmetric Encryption & Mode Analysis](#-task-a-symmetric-encryption--mode-analysis)
   - [AES-128 vs. 3-DES Benchmarks](#1-performance-benchmarks-aes-128-vs-3-des)
   - [Avalanche Effect Analysis](#2-avalanche-effect-analysis)
@@ -78,6 +79,56 @@
 |  5. Signature Verify:     RSA_Verify(Hash_Received, Signature, PubKey_Sender)        |
 +---------------------------------------------------------------------------------------+
 ```
+
+---
+
+## 🖥 Interactive CLI Application (`shade_cli.py`)
+
+In addition to automated batch testing, SHADE provides an interactive, stateful terminal console ([`shade_cli.py`](shade_cli.py)) allowing step-by-step exploration of each cryptographic primitive with live session status indicators (`[✅]`, `[⬜]`, `[❌]`) and strict dependency tracking.
+
+```
+╔══════════════════════════════════════════════════════╗
+║     SHADE — Secure Hospital Document Exchange        ║
+╠══════════════════════════════════════════════════════╣
+║  Document : patient_report.txt   (9431 bytes)        ║
+╠══════════════════════════════════════════════════════╣
+║                                                      ║
+║  ── LAYER 1: SYMMETRIC ENCRYPTION ─────────────────  ║
+║   1.  AES-128 CBC Encryption & Decryption    [⬜]    ║
+║   2.  3-DES CBC Encryption & Decryption      [⬜]    ║
+║   3.  Avalanche Effect Analysis              [⬜]    ║
+║   4.  ECB vs CBC Image Comparison            [⬜]    ║
+║                                                      ║
+║  ── LAYER 2: ASYMMETRIC & KEY EXCHANGE ────────────  ║
+║   5.  RSA-2048 Key Generation                [⬜]    ║
+║   6.  Hybrid Envelope Encryption             [⬜]    ║
+║   7.  Diffie-Hellman Key Exchange             [⬜]    ║
+║   8.  MITM Attack Simulation                 [⬜]    ║
+║                                                      ║
+║  ── LAYER 3: INTEGRITY ────────────────────────────  ║
+║   9.  SHA-256 Integrity Verification         [⬜]    ║
+║  10.  Ciphertext Tamper Detection             [⬜]    ║
+║                                                      ║
+║  ── LAYER 4: AUTHENTICATION ───────────────────────  ║
+║  11.  RSA Digital Signature (Sign)            [⬜]    ║
+║  12.  Signature Verification                 [⬜]    ║
+║  13.  X.509 Certificate Generation           [⬜]    ║
+║  14.  Kerberos Authentication Simulation     [⬜]    ║
+║                                                      ║
+║  ── FULL PIPELINE ─────────────────────────────────  ║
+║  15.  ▶ Run Complete SHADE Pipeline                  ║
+║  16.  📋 Show Results Summary                        ║
+║  17.  🔄 Reset All (start fresh)                     ║
+║                                                      ║
+║   0.  Exit                                           ║
+║                                                      ║
+╚══════════════════════════════════════════════════════╝
+```
+
+### CLI Features:
+- **Centralized `STATE` Dictionary**: Preserves in-memory keys, initialization vectors, ciphertexts, and certificates across steps without requiring redundant disk I/O.
+- **Dependency Guard**: Warns and prevents out-of-order execution (e.g., attempting Hybrid Encryption before generating AES or RSA keys).
+- **One-Click Execution**: Option 15 executes the full pipeline non-interactively and generates an instant session verification summary.
 
 ---
 
@@ -231,6 +282,7 @@ All scripts for Task D reside in [`task_d/`](task_d/).
 Hospital-Document-Exchange/
 ├── .gitignore
 ├── README.md
+├── shade_cli.py                       # Interactive Stateful CLI Menu (17 Options)
 ├── demo.py                            # Master End-to-End SHADE Pipeline Runner (14 checks)
 │
 ├── [ Task A — Symmetric Ciphers & Mode Analysis ]
@@ -299,12 +351,17 @@ python -m venv venv
 pip install pycryptodome Pillow cryptography
 ```
 
-### 2. Run Master End-to-End Pipeline
+### 2. Run Interactive CLI Menu
+```bash
+python shade_cli.py
+```
+
+### 3. Or Run Master Automated Pipeline
 ```bash
 python demo.py
 ```
 
-### 3. Or Run Tasks Individually
+### 4. Or Run Tasks Individually
 
 - **Task A (Symmetric Suite)**:
   ```bash
