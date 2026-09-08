@@ -1,0 +1,9 @@
+[theme]
+# Bootstrap only — runtime appearance is owned by LIGHT_THEME / DARK_THEME in ui/theme.py.
+# Keep this aligned with DARK_THEME so the first paint matches the default toggle.
+base = "dark"
+primaryColor = "#2EC9B6"
+backgroundColor = "#0B1117"
+secondaryBackgroundColor = "#151E28"
+textColor = "#F3F7F8"
+font = "sans serif"
