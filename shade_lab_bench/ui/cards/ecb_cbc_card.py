@@ -1,7 +1,32 @@
+import io
+
 import streamlit as st
+from PIL import Image
 
 from core.image_modes import encrypt_bmp_pixels
 from core.sample_data import get_sample_bmp
+
+# Cap dimensions so a large phone-camera JPEG doesn't blow up pixel-block
+# encryption time or the rendered preview -- same defensive instinct as the
+# avalanche-heatmap fix, applied before anything reaches the unchanged
+# core encryption logic below.
+MAX_DIMENSION = 300
+
+
+def _to_bmp_bytes(uploaded_file) -> bytes:
+    """
+    Converts any Pillow-readable image (PNG, JPG, JPEG, BMP, ...) into raw
+    BMP bytes. encrypt_bmp_pixels() only understands the BMP header format,
+    so this conversion happens BEFORE that function ever sees the data --
+    the core encryption logic itself is untouched and unaware the original
+    upload wasn't already a BMP.
+    """
+    img = Image.open(uploaded_file).convert("RGB")
+    if max(img.size) > MAX_DIMENSION:
+        img.thumbnail((MAX_DIMENSION, MAX_DIMENSION))
+    buffer = io.BytesIO()
+    img.save(buffer, format="BMP")
+    return buffer.getvalue()
 
 
 def render_ecb_vs_cbc(ss):
@@ -11,10 +36,17 @@ def render_ecb_vs_cbc(ss):
     with col_controls:
         with zone_controls():
             st.markdown("#### Controls")
-            uploaded = st.file_uploader("Upload a BMP (optional)", type=["bmp"])
+            uploaded = st.file_uploader(
+                "Upload an image (optional)",
+                type=["bmp", "png", "jpg", "jpeg"],
+            )
             if uploaded:
-                bmp_bytes = uploaded.read()
-                st.caption("Using your uploaded image")
+                try:
+                    bmp_bytes = _to_bmp_bytes(uploaded)
+                    st.caption(f"Using your uploaded image ({uploaded.name})")
+                except Exception:
+                    st.error("Couldn't read that file as an image -- using the sample instead.")
+                    bmp_bytes = get_sample_bmp()
             else:
                 bmp_bytes = get_sample_bmp()
                 st.caption("Using generated sample image")
